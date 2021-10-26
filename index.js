@@ -3,6 +3,7 @@ const app = express();
 const dotenv = require("dotenv");
 const mongoose = require('mongoose');
 const multer = require('multer');
+const cors = require('cors');
 
 const authRoute = require("./routes/auth");
 const userRoute = require("./routes/users");
@@ -26,6 +27,8 @@ const storage = multer.diskStorage({
       cb(null, req.body.name)
    }
 });
+
+app.use(cors());
 
 const upload = multer({storage: storage});
 app.post("/api/upload", upload.single("file"), (req, res) => {
